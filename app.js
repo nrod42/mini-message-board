@@ -4,6 +4,7 @@ const path = require("path");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const dotenv = require("dotenv");
 const port = 3000;
 
 const indexRouter = require("./routes/index");
@@ -11,8 +12,8 @@ const indexRouter = require("./routes/index");
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB =
-  "mongodb+srv://admin:mkAwAxgnKp7s6HCb@cluster0.qu4m9sh.mongodb.net/mini_message_board?retryWrites=true&w=majority";
+dotenv.config();
+const mongoDB = process.env.MONGO_URI;
 
 (async function () {
   await mongoose.connect(mongoDB);

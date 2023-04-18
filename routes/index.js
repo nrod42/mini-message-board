@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 const Message = require("../models/Message");
+const dotenv = require("dotenv");
 
+// Set up mongoose connection
+const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB =
-  "mongodb+srv://admin:mkAwAxgnKp7s6HCb@cluster0.qu4m9sh.mongodb.net/mini_message_board?retryWrites=true&w=majority";
+dotenv.config();
+const mongoDB = process.env.MONGO_URI;
 
 (async function () {
   await mongoose.connect(mongoDB);

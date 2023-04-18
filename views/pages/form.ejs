@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include('../partials/head'); %>
-</head>
-<body>
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+    <main class="container">
+      <form method="POST" action="/new">
+        <h1>New message</h1>
+        <div class="mb-3">
+          <label for="username" class="form-label">Name</label>
+          <input
+            type="text"
+            name="username"
+            class="form-control"
+            id="username"
+            placeholder="Name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea
+            name="message"
+            class="form-control"
+            id="message"
+            rows="5"
+            placeholder="Enter a message"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </main>
 
-<main class="container">
-  <form method="POST" action="/new">
-    <h1>New message</h1>
-    <div class="mb-3">
-      <label for="username" class="form-label">Name</label>
-      <input type="text" name="username" class="form-control" id="username" placeholder="Name" required>
-    </div>
-    <div class="mb-3">
-      <label for="message" class="form-label">Message</label>
-      <textarea name="message" class="form-control" id="message" rows="5" placeholder="Enter a message" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
-</main>
-
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
-
-</body>
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
 </html>

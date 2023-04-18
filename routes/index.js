@@ -1,21 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amanda",
-    added: new Date()
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date()
-  }
-];
+const mongoose = require("mongoose");
+const Message = require("../models/Message");
+
+mongoose.set("strictQuery", false);
+const mongoDB =
+  "mongodb+srv://admin:mkAwAxgnKp7s6HCb@cluster0.qu4m9sh.mongodb.net/mini_message_board?retryWrites=true&w=majority";
+
+(async function () {
+  await mongoose.connect(mongoDB);
+})().catch((err) => console.log(err));
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('pages/index', { title: 'Mini Message Board', messages: messages });
+router.get("/", async function (req, res, next) {
+  const messages = await Message.find();
+  res.render("pages/index", {
+    title: "Mini Message Board",
+    messages: messages,
+  });
 });
 
 /* GET new message page. */
@@ -24,9 +26,13 @@ router.get("/new", function (req, res, next) {
 });
 
 /* POST new message */
-router.post("/new", function (req, res) {
-  messages.push({text: req.body.message, user: req.body.username, added: new Date()});
+router.post("/new", async function (req, res) {
+  await Message.create({
+    message: req.body.message,
+    username: req.body.username,
+    date: new Date(),
+  });
   res.redirect("/");
-})
+});
 
 module.exports = router;

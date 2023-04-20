@@ -5,7 +5,7 @@ const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 dotenv.config();
 
 const indexRouter = require("./routes/index");

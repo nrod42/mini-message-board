@@ -5,15 +5,16 @@ const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
-const port = 3000;
+const port = process.env.PORT || 3000;
+dotenv.config();
 
 const indexRouter = require("./routes/index");
+const newMessageRouter = require("./routes/newMessage");
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-dotenv.config();
-const mongoDB = process.env.MONGO_URI;
+const mongoDB = process.env.MONGO_URL;
 
 (async function () {
   await mongoose.connect(mongoDB);
@@ -29,16 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-
-// index page
-app.get("/", function (req, res) {
-  res.render("pages/index");
-});
-
-// new message page
-app.get("/new", function (req, res) {
-  res.render("pages/new");
-});
+app.use("/new", newMessageRouter);
 
 app.listen(port);
 console.log(`Server is listening on port ${port}`);
